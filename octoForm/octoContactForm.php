@@ -1,11 +1,14 @@
 <?php
 
+
+
 class octoContactForm {
 
     public $attributes = array();
     public $ajax;
     public $success;
     public $errors = array();
+    public $errorsHtmlList = '';
     public $emailSubject;
     public $emailSender;
     public $emailReceivers;
@@ -42,12 +45,18 @@ class octoContactForm {
                 // We send the message
                 $sendMail = mail($this->emailReceivers, $this->emailSubject, $this->emailContent, $headers);
                 if (!$sendMail) {
-                    $this->errors['impossibleToSendMessage'] = 'We dit not send the message for an intergalactic reason';
+                    $this->errors['impossibleToSendMessage'] = 'We did not send the message for an intergalactic reason';
                     $this->success = false;
                 } else {
                     $this->success = true;
                 }
             }
+        } else {
+            $this->errorsHtmlList = '<ul>';
+            foreach ($this->errors as $key => $error) {
+                $this->errorsHtmlList .= '<li>' . $key . ': ' . $error . '</li>';
+            }
+            $this->errorsHtmlList .= '</ul>';
         }
         return $this;
     }
