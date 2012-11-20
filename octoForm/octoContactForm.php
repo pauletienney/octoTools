@@ -1,7 +1,5 @@
 <?php
 
-
-
 class octoContactForm {
 
     public $attributes = array();
@@ -45,19 +43,22 @@ class octoContactForm {
                 // We send the message
                 $sendMail = mail($this->emailReceivers, $this->emailSubject, $this->emailContent, $headers);
                 if (!$sendMail) {
-                    $this->errors['impossibleToSendMessage'] = 'We did not send the message for an intergalactic reason';
+                    $this->errors['Message not sent'] = 'The server had a problem. Please try later.';
                     $this->success = false;
                 } else {
                     $this->success = true;
                 }
             }
-        } else {
+        }
+
+        if (!empty($this->errors)) {
             $this->errorsHtmlList = '<ul>';
             foreach ($this->errors as $key => $error) {
                 $this->errorsHtmlList .= '<li>' . $key . ': ' . $error . '</li>';
             }
             $this->errorsHtmlList .= '</ul>';
         }
+
         return $this;
     }
 
