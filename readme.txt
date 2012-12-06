@@ -1,4 +1,4 @@
-A simple collection of tools I use to go quicker
+Various tools in various languages to help create good websites.
 
 - octoContactForm: validate and send contact forms
 - octoMap: create Google Maps and add markers
