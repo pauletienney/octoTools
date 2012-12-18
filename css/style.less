@@ -45,20 +45,41 @@ ul, ol {
 
 /* *** UTILES *** */
 
-.left {float:left;}
-.right {float:right;}
-.clear {clear:both;}
+.absolute {position: absolute;}
+.relative {position: relative;}
 
-.hide {display:none;}
+.hide { display:none; }
 
-.padder { padding:10px; }
+.noDeco, .noDeco a { text-decoration:none; }
 
 .pointer {cursor:pointer;}
+.center {text-align: center;}
+.noSelect { -moz-user-select: none; -webkit-user-select: none; }
+.disabled {
+    color:#ccc;
+    pointer:default;
+}
 
-.horizontalList { list-style:none; }
-.horizontalList > li { float:left; margin-right:10px; }
+.minorInfo {
+    font-size:0.8em;
+    color:#aaa;
+}
 
-.absolute {position:absolute;}
-.relative {position:relative;}
+.padder { padding:10px;}
+
+.horizontalList { list-style: none; }
+.horizontalList li { float:left; }
+.horizontalList li.right { float:right; }
+
+.left { float:left; }
+.right { float:right; }
+.clear {clear:both;}
+
+
+.hr { 
+    height:1px;
+    background:#ccc;
+    margin: 15px 0;
+}
 
 /* *** /UTILES *** */
