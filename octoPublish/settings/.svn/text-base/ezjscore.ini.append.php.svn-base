@@ -1,0 +1,25 @@
+<?php /* #?ini charset="utf-8"?
+
+[ezjscServer] 
+FunctionList[]=docs
+FunctionList[]=brands
+FunctionList[]=publicarchive
+
+
+[ezjscServer_docs]
+Class=docsFunctions
+File=extension/lga/classes/ezjscoredocs.php
+Functions[]=docs
+
+[ezjscServer_brands]
+Class=brandsFunctions
+File=extension/lga/classes/ezjscorebrands.php
+Functions[]=brands
+
+
+[ezjscServer_publicarchive]
+Class=publicarchiveFunctions
+File=extension/lga/classes/ezjspublicarchive.php
+Functions[]=publicarchive
+
+*/ ?>

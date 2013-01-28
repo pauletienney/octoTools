@@ -1,0 +1,17 @@
+<?php
+$Module = array( "name" => "uplaod",
+                 "variable_params" => true);
+                 
+$ViewList = array();
+
+$ViewList["checkuploadpublish"]= array(
+        'functions' => array( 'checkuploadpublish' ),       
+        'script' => 'checkuploadpublish.php',
+        'params' => array()
+);
+
+$FunctionList = array();
+$FunctionList['checkuploadpublish'] = array();	
+
+
+?>

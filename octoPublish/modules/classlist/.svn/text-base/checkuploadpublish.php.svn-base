@@ -1,0 +1,102 @@
+<?php
+
+// First of all, we check if the user is logged in.
+$userRemoteId = $_POST['userRemoteId'];
+$sender = eZContentObject::fetchByRemoteID($userRemoteId);
+$senderId = $sender->ID;
+$isLoggedIn = eZUser::isUserLoggedIn($senderId);
+
+
+// If the user is loggedin and if there is a file
+if (!empty($_FILES) && $isLoggedIn) {
+    
+    
+        // This files include the method to create new objects
+        require_once('extension/lga/lib/newobject.php');
+        
+        // We get the file extension
+        $fileExtension = strtolower(substr(strrchr($_FILES['Filedata']['name'], '.'), 1));
+        
+        // We check if the extension is authorized and what kind of file it is
+        require_once('extension/lga/lib/uploadFunctions.php');
+        $fileType = checkExtension($fileExtension);
+        
+        if ($fileType) {
+            
+        // We set the temporary place where the file is uploaded    
+        
+        // Local Absolute path of the website
+        $rootDir = eZSys::rootDir();
+	$targetPath = $rootDir . '/var/tempUploads/';
+        $targetPath = str_replace('//','/',$targetPath);
+        $targetFile =  $targetPath . $_FILES['Filedata']['name'];
+        
+        // We create/upload the file
+        $tempFile = $_FILES['Filedata']['tmp_name'];
+        move_uploaded_file($tempFile,$targetFile);
+        
+	
+	
+	
+	
+	
+        
+        // We create an ezpublish object with this files
+        $NewObject['class_identifier'] = 'document';
+        $NewObject['creator_id'] = $senderId;
+        $NewObject['parent_node_id'] = '156';
+        $NewObject['ezxml'] = array();
+            $NewObject['attributes']['nom'] = $_FILES['Filedata']['name'];
+            $NewObject['attributes']['fichier'] = $targetFile;
+            
+        $NewObjectCreation = contentTools::createCheckAndPublishObject($NewObject);
+        
+	
+        // We delete the file in the temporary folder
+        unlink($targetFile);
+        
+
+	// We build the result
+        $objectID = $NewObjectCreation['object']->ID;
+        $message = 'ok'; 
+        
+            
+        } else {
+            
+            // Error message to display
+            $message = '<div class="erreurBlock">';
+            $message .= 'Le fichier' . $_FILES['Filedata']['name'] . ' n\'a pas &eacute;t&eacute; envoy&eacute;. Ce type de fichier (' . $fileExtension . ') est interdit.';
+            $message .= '</div>';
+            $objectID = false;
+        }
+        
+        // We build the result and echo it.
+        $result = array(
+          'objectID' => $objectID,
+          'message' => $message
+        );
+        
+        $resultJSON = json_encode($result);
+        echo $resultJSON;
+          
+                
+	
+} else {
+  
+    
+    
+   // If someone tries to send a file from a non logged user.s 
+//   $ip = $_SERVER["REMOTE_ADDR"];
+//   $filename = !empty($_FILES['Filedata']['name']) ? $_FILES['Filedata']['name'] : 'pas de fichier';
+//   $sujet = 'LGA -  Tentative d\'upload depuis un compte non logg&eacute;.';
+//   $text = '<ul><li>ip : ';
+//   $text .= $ip;
+//   $text .= '</li><li>Fichier envoy&eacute;';
+//   $text .= $filename;
+//   $text .= '</li></ul>';
+   // mail('p.etienney@gmail.com', $sujet, $text);
+}
+
+eZExecution::cleanExit();
+
+?>

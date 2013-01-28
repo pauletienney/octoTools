@@ -1,0 +1,11 @@
+<?php /* #?ini charset="iso-8859-1"?
+
+[ModuleSettings]
+ExtensionRepositories[]=lga
+ModuleList[]=import
+ModuleList[]=upload
+ModuleList[]=multiedit
+ModuleList[]=docs
+ 
+
+?>

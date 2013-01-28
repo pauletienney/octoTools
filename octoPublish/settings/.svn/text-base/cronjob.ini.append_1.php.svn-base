@@ -1,0 +1,9 @@
+<?php /*
+
+[CronjobSettings]
+ExtensionDirectories[]=lga
+
+[CronjobPart-daily]
+Scripts[]=cleanzippedfiles.php
+
+*/ ?>
